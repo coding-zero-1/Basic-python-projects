@@ -3,7 +3,15 @@ import customtkinter
 from pytube import YouTube
 
 def download_video():
-    pass
+    try:
+        yt_link=link.get()
+        youtube_object=YouTube(yt_link)
+        video=youtube_object.streams.get_by_resolution("720p")
+        video.download()
+        print("Download complete")
+    except:
+        print("There is an error!!")
+
 
 #system settings
 customtkinter.set_appearance_mode("System")
@@ -23,7 +31,7 @@ link=customtkinter.CTkEntry(app,width=400,height=60,corner_radius=10,textvariabl
 link.pack()
 
 #download button
-download=customtkinter.CTkButton(app,width=50,height=50,textvariable=download_video)
-download.pack()
+download=customtkinter.CTkButton(app,width=50,height=50,text="Download video",command=download_video)
+download.pack(padx=10,pady=10)
 #Run app as a loop to keep it open
 app.mainloop()
